@@ -1,14 +1,6 @@
 <?php
    session_start();
 
-   // $host = "localhost";
-   // $username = "root";
-   // $contraseña = "bbdd";
-   // $db_nombre = "FiltroPelicula";
-
-   // NO FUNCIONA mysqli
-   // $conexion = new mysqli($host, $username, $contraseña, $db_nombre);
-
    if (isset($_SESSION["usuario"])) {
       header("Location: index.php");
    }
