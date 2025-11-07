@@ -74,3 +74,17 @@ p {
    color: red;
 }
 
+.traducciones {
+   margin-bottom: 10px;
+   align-self: flex-start;
+   color: #fff;
+   transition: color 0.2s ease;
+}
+
+.traducciones:hover {
+   color: #ccc;
+}
+
+.traducciones:visited {
+   color: fff;
+}

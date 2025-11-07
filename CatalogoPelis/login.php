@@ -1,8 +1,15 @@
 <?php
    session_start();
+   include_once "internacionalizacion.php";
 
    if (isset($_SESSION["usuario"])) {
       header("Location: index.php");
+   }
+
+   if ($file == "lang/es.php") {
+      $_SESSION["lang"] = "es";
+   } else {
+      $_SESSION["lang"] = "en";
    }
 
    $usuarios = [
@@ -18,36 +25,38 @@
    if ($_SERVER["REQUEST_METHOD"] === "POST") {
       if (isset($usuarios[$usuario]) && $usuarios[$usuario] == $contraseña) {
          $_SESSION["usuario"] = $usuario;
-         header("Location: index.php");
+         header("Location: index.php?lang=" . $_SESSION["lang"]);
       } else {
-         $error = "Usuario o contraseña incorrectos";
+         $error = $traducciones["error_mensaje"];
       }
    }
 ?>
 
+<!-- IMPORTANTE: SOLO SE PUEDE CAMBIAR EL IDIOMA EN LOGIN -->
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?php echo $_SESSION["lang"]?>" >
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login</title>
+   <title><?php echo $traducciones["title_login"]?></title>
    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-   <!-- <?php // if ($conexion -> connect_error): ?>
-      <h2>Conexión fallida a la base de datos Filtro Pelicula</h2>
-   <?php // endif; ?> -->
+   <form action="login.php?lang=<?php echo $_SESSION["lang"]?>" method="POST" class="form__container">
+      <h2><?php echo $traducciones["title_login"]?></h2>
 
-   <form action="login.php" method="POST" class="form__container">
-      <h2>Inicio de Sesión</h2>
-
-      <label for="username">Nombre de Usuario</label>
-      <input type="text" name="usuario" id="username" placeholder="Usuario" required>
-      <label for="contraseña">Contraseña</label>
+      <div>
+      <a href="?lang=es" class="traducciones">Español</a>
+      <a href="?lang=en" class="traducciones">English</a>
+      </div>
+      <label for="username"><?php echo $traducciones["username_login"]?></label>
+      <input type="text" name="usuario" id="username" <?php echo $file == "lang/es.php" ? 'placeholder="Usuario"' : 'placeholder="Username"'?> required>
+      <label for="contraseña"><?php echo $traducciones["contraseña_login"]?></label>
       <input type="password" name="contraseña" id="contraseña" placeholder="***********" required>
       <p><?php echo !empty($error) ? $error : ""?></p>
 
-      <input type="submit" value="Iniciar Sesión">
+      <input type="submit" value="<?php echo $traducciones["boton_login"]?>">
    </form>
 </body>
 </html>
