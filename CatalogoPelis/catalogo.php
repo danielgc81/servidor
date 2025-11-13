@@ -1,12 +1,16 @@
 <?php
+include "Utilidades.php";
+include "Pelicula.php";
 session_start();
 include_once "iniciar_peliculas.php";
 include_once "internacionalizacion.php";
 
-
 if (!isset($_SESSION["usuario"])) {
    header("Location: login.php");
 }
+
+Utilidades::incrementarVisitasCatalogo();
+$visitas_catalogo = $_SESSION["visitas_catalogo"];
 
 $genero = $_GET["genero"] ?? "";
 $año = $_GET["año"] ?? "";
@@ -30,6 +34,7 @@ $_SESSION["director"] = $director;
 
    <a href="nueva_pelicula.php?lang=<?php echo $_SESSION["lang"]?>"><?php echo $traducciones["añadir_peliculas_catalogo"]?></a> <br>
    <a href="logout.php"><?php echo $traducciones["logout_catalogo"]?></a>
+   <p><?php echo $visitas_catalogo . ($visitas_catalogo == 1 ? $traducciones["visitas_singular"] : $traducciones["visitas_plural"])?></p>
    <table>
       <thead>
          <tr>
@@ -41,21 +46,13 @@ $_SESSION["director"] = $director;
          </tr>
       </thead>
       <tbody>
-         <?php $contador = 0;?>
-         <?php foreach ($_SESSION["peliculas"] as $pelicula): ?>
-            <?php if (($pelicula["genero"] == $genero || $genero == "")
-            && ($pelicula["año"] == $año || $año == "")
-            && (stripos($pelicula["director"], $director) != false || $director == "")):?>
-            <tr>
-               <td><?php echo $pelicula["titulo"]?></td>
-               <td><?php echo $pelicula["año"]?></td>
-               <td><?php echo $pelicula["genero"]?></td>
-               <td><?php echo $pelicula["director"]?></td>
-               <td><?php echo $pelicula["actores"]?></td>
-            </tr>
-            <?php $contador++;?>
-            <?php endif;?>
-         <?php endforeach; ?>
+         <?php
+            $peliculas_filtradas = Utilidades::filtrarPeliculas($_SESSION["peliculas"], $_SESSION["genero"], $_SESSION["año"], $_SESSION["director"]);
+            $contador = count($peliculas_filtradas);
+            foreach ($peliculas_filtradas as $pelicula) {
+               echo $pelicula->mostrarPelicula();
+            }
+         ?>
       </tbody>
    </table>
    <?php if(empty($contador)): ?>

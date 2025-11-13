@@ -1,4 +1,6 @@
 <?php
+   include_once "Utilidades.php";
+   include_once "Pelicula.php";
    session_start();
    include_once "iniciar_peliculas.php";
    include_once "internacionalizacion.php";
@@ -18,7 +20,7 @@
 
       // Comprobamos que la pelicula que queremos no se encuentre ya en el array de películas para evitar duplicados
       foreach ($_SESSION["peliculas"] as $p) {
-         if ($titulo == $p["titulo"]) {
+         if (strcasecmp($p->titulo, $titulo) === 0) {
             $mensaje = $traducciones["no_añadida_nuevapelicula"];
             $pelicula_existe = true;
             break;
@@ -28,13 +30,8 @@
       // Si la película no existe en el array $_SESSION["peliculas], añadimos la película al array
       if (!$pelicula_existe) {
          $mensaje = $traducciones["añadida_nuevapelicula"];
-         $_SESSION["peliculas"][] = [
-            "titulo" => $titulo,
-            "año" => $año,
-            "director" => $director,
-            "genero" => $genero,
-            "actores" => $actores
-         ];
+         $nueva_pelicula = new Pelicula($titulo, $año, $director, $actores, $genero);
+         Utilidades::añadirPelicula($_SESSION["peliculas"], $nueva_pelicula);
       }
    }
 ?>

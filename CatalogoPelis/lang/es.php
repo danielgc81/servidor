@@ -31,6 +31,8 @@
       "genero_catalogo" => "Género",
       "director_catalogo" => "Director",
       "actores_catalogo" => "Actores",
+      "visitas_singular" => " vez en catalogo",
+      "visitas_plural" => " veces en catalogo",
       // Nueva_pelicula.php
       "title_nuevapelicula" => "Añadir Peliculas",
       "titulo_nuevapelicula" => "Título",
