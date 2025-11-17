@@ -13,7 +13,10 @@ if (!isset($_SESSION["peliculas"])) {
          new Pelicula("Una mente maravillosa", 2001, "Ron Howard", "Russell Crowe, Ed Harris, Jennifer Connelly", "Biografía"),
          new Pelicula("Big Fish", 2003, "Tim Burton", "Ewan McGregor, Albert Finney, Billy Crudup, Jessica Lange", "Drama"),
          new Pelicula("El club de la lucha", 1999, "David Fincher", "Edward Norton, Brad Pitt, Helena Bonham Carter", "Thriller"),
-         new Pelicula("Eduardo Manostijeras", 1990, "Tim Burton", "Johnny Depp, Winona Ryder, Dianne Wiest", "Fantasía")
+         new Pelicula("Eduardo Manostijeras", 1990, "Tim Burton", "Johnny Depp, Winona Ryder, Dianne Wiest", "Fantasía"),
+         new Serie("The Walking Dead", 2010, "Frank Darabont", "Andrew Lincoln, Norman Reedus, Melissa McBrige, Lauren Cohan, Jon Bernthal", "Drama", 11),
+         new Serie("Stranger Things", 2016, "The Duffer Brothers", "Winona Ryder, David Harbour, Millie Bobby Brown", "Ciencia Ficción", 4),
+         new Cortometraje("El corto nocturno", 2018, "Ana Pérez", "Actor A, Actor B", "Drama", 22)
       ];
    } else if ($_SESSION["lang"] == "en") {
       $_SESSION["peliculas"] = [
@@ -28,7 +31,10 @@ if (!isset($_SESSION["peliculas"])) {
          new Pelicula("A Beautiful Mind", 2001, "Ron Howard", "Russell Crowe, Ed Harris, Jennifer Connelly", "Biography"),
          new Pelicula("Big Fish", 2003, "Tim Burton", "Ewan McGregor, Albert Finney, Billy Crudup, Jessica Lange", "Drama"),
          new Pelicula("Fight Club", 1999, "David Fincher", "Edward Norton, Brad Pitt, Helena Bonham Carter", "Thriller"),
-         new Pelicula("Edward Scissorhands", 1990, "Tim Burton", "Johnny Depp, Winona Ryder, Dianne Wiest", "Fantasy")
+         new Pelicula("Edward Scissorhands", 1990, "Tim Burton", "Johnny Depp, Winona Ryder, Dianne Wiest", "Fantasy"),
+         new Serie("The Walking Dead", 2010, "Frank Darabont", "Andrew Lincoln, Norman Reedus, Melissa McBrige, Lauren Cohan, Jon Bernthal", "Drama", 11),
+         new Serie("Stranger Things", 2016, "The Duffer Brothers", "Winona Ryder, David Harbour, Millie Bobby Brown", "Ciencia Ficción", 4),
+         new Cortometraje("The nocturnal short", 2018, "Ana Pérez", "Actor A, Actor B", "Drama", 22)
       ];
    }
 }

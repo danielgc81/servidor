@@ -19,6 +19,9 @@ $director = $_GET["director"] ?? "";
 $_SESSION["genero"] = $genero;
 $_SESSION["año"] = $año;
 $_SESSION["director"] = $director;
+
+$peliculas_filtradas = Utilidades::filtrarPeliculas($_SESSION["peliculas"], $_SESSION["genero"], $_SESSION["año"], $_SESSION["director"]);
+$contador = count($peliculas_filtradas);
 ?>
 
 <!DOCTYPE html>
@@ -47,10 +50,12 @@ $_SESSION["director"] = $director;
       </thead>
       <tbody>
          <?php
-            $peliculas_filtradas = Utilidades::filtrarPeliculas($_SESSION["peliculas"], $_SESSION["genero"], $_SESSION["año"], $_SESSION["director"]);
-            $contador = count($peliculas_filtradas);
             foreach ($peliculas_filtradas as $pelicula) {
                echo $pelicula->mostrarPelicula();
+            }
+            foreach ($peliculas_filtradas as $pelicula) {
+               echo $pelicula->toHTML();
+               echo $pelicula->toJSON();
             }
          ?>
       </tbody>
